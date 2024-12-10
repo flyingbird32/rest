@@ -14,11 +14,6 @@ void Service::callRoute(void* handler, Request request)
 	reinterpret_cast<void(*)(Request)>(handler)(request);
 }
 
-void sendResponse(SOCKET clientSocket, const std::string& response) 
-{
-    send(clientSocket, response.c_str(), response.size(), 0);
-}
-
 void Service::handleRequest(SOCKET clientSocket)
 {
     char buffer[4096];
@@ -42,7 +37,8 @@ void Service::handleRequest(SOCKET clientSocket)
 		"Content-Type: text/plain\r\n"
 		"Content-Length: 7\r\n\r\n"
 		"awesome";
-	sendResponse(clientSocket, response);
+
+	send(clientSocket, response.c_str(), response.size(), 0);
     closesocket(clientSocket);
 }
 
