@@ -1,8 +1,17 @@
 #include "rest.h"
 
+void testMethod(rest::Service::Request request)
+{
+	printf("test: %s, %s\n", request.path.c_str(), request.data.c_str());
+}
+
 int main()
 {
-	rest::Network::test(53, 88);
-	rest::test();
+	rest::Service testService;
+	
+	testService.registerEndpoint("/test", HTTP_METHOD::GET, testMethod);
+	
+	testService.start(80);
+
 	return 0;
 }

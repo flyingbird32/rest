@@ -130,6 +130,7 @@
     <ClCompile Include="rest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="data\http_method.h" />
     <ClInclude Include="rest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
