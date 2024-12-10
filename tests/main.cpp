@@ -1,4 +1,5 @@
 #include "rest.h"
+#include <iostream>
 
 void testMethod(rest::Service::Request request)
 {
@@ -11,7 +12,7 @@ int main()
 	
 	testService.registerEndpoint("/test", HTTP_METHOD::GET, testMethod);
 	
-	testService.start(80);
+	testService.start(3200);
 
 	return 0;
 }

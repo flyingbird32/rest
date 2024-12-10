@@ -2,5 +2,6 @@
 enum class HTTP_METHOD
 {
 	GET,
-	POST
+	POST,
+	UNKNOWN
 };
