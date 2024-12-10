@@ -36,7 +36,7 @@ void Service::handleRequest(SOCKET clientSocket)
 			callRoute(route.handler, warmupRequest);
 			break;
 		}
-	}	
+	}
 }
 
 void Service::start(int port)

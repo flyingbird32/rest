@@ -28,20 +28,20 @@ public:
         const std::map<std::string, std::string>& customHeaders = {}) {
 
         std::string contentTypeStr;
-        switch (contentType) 
+        switch (contentType)
         {
-            case CONTENT_TYPE::JSON:
-                contentTypeStr = "application/json";
-                break;
-            case CONTENT_TYPE::HTML:
-                contentTypeStr = "text/html";
-                break;
-            case CONTENT_TYPE::XML:
-                contentTypeStr = "application/xml";
-                break;
-            case CONTENT_TYPE::PLAIN_TEXT:
-                contentTypeStr = "text/plain";
-                break;
+        case CONTENT_TYPE::JSON:
+            contentTypeStr = "application/json";
+            break;
+        case CONTENT_TYPE::HTML:
+            contentTypeStr = "text/html";
+            break;
+        case CONTENT_TYPE::XML:
+            contentTypeStr = "application/xml";
+            break;
+        case CONTENT_TYPE::PLAIN_TEXT:
+            contentTypeStr = "text/plain";
+            break;
         }
 
         std::stringstream response;
@@ -58,29 +58,29 @@ public:
         response << body;
 
         send(clientSocket, response.str().c_str(), static_cast<int>(response.str().size()), 0);\
-        closesocket(clientSocket);
+            closesocket(clientSocket);
     }
 };
 
 struct Request
 {
-	Request(std::string routeUrl, std::string body, HTTP_METHOD method)
-	{
-		this->routeUrl = routeUrl;
-		this->body = body;
-		this->method = method;
-	}
+    Request(std::string routeUrl, std::string body, HTTP_METHOD method)
+    {
+        this->routeUrl = routeUrl;
+        this->body = body;
+        this->method = method;
+    }
 
-	std::string routeUrl;
-	std::string body;
-	HTTP_METHOD method;
-	CONTENT_TYPE contentType;
-	std::string authorization;
-	std::string host;
-	std::string accept;
-	std::string userAgent;
-	std::string acceptEncoding; 
-	std::string connection;
-	int contentLength;
+    std::string routeUrl;
+    std::string body;
+    HTTP_METHOD method;
+    CONTENT_TYPE contentType;
+    std::string authorization;
+    std::string host;
+    std::string accept;
+    std::string userAgent;
+    std::string acceptEncoding;
+    std::string connection;
+    int contentLength;
     Response response;
 };
