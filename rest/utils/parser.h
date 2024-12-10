@@ -32,7 +32,7 @@ namespace parser
             {
                 std::string headerName = line.substr(0, colonPos);
                 std::string headerValue = line.substr(colonPos + 1);
-                headerValue.erase(0, headerValue.find_first_not_of(" \t")); 
+                headerValue.erase(0, headerValue.find_first_not_of(" \t"));
                 headers[headerName] = headerValue;
             }
         }

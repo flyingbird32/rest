@@ -32,7 +32,7 @@ namespace rest
 		struct Route
 		{
 			std::string path;
-			HTTP_METHOD methods;
+			HTTP_METHOD method;
 			void* handler;
 		};
 

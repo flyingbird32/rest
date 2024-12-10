@@ -16,22 +16,21 @@ void Service::callRoute(void* handler, Request request)
 
 void Service::handleRequest(SOCKET clientSocket)
 {
-    char buffer[4096];
-    int bytesReceived = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
+	char buffer[4096];
+	int bytesReceived = recv(clientSocket, buffer, sizeof(buffer) - 1, 0);
 
-    if (!(bytesReceived > 0))
-    {
-        closesocket(clientSocket);
-        return;
-    }
+	if (!(bytesReceived > 0))
+	{
+		closesocket(clientSocket);
+		return;
+	}
 
-    buffer[bytesReceived] = '\0';
-    std::string request(buffer);
-
+	buffer[bytesReceived] = '\0';
+	std::string request(buffer);
 	WarmupRequest warmupRequest = parser::parseWarmup(request);
 
 	printf("method: %s, url: %s, body: %s, content: %s\n", converter::httpMethodS(warmupRequest.method).c_str(), warmupRequest.routeUrl.c_str(), warmupRequest.body.c_str(), converter::contentTypeS(warmupRequest.contentType).c_str());
-    
+
 	std::string response =
 		"HTTP/1.1 200 OK\r\n"
 		"Content-Type: text/plain\r\n"
@@ -39,7 +38,7 @@ void Service::handleRequest(SOCKET clientSocket)
 		"awesome";
 
 	send(clientSocket, response.c_str(), response.size(), 0);
-    closesocket(clientSocket);
+	closesocket(clientSocket);
 }
 
 void Service::start(int port)
@@ -58,10 +57,10 @@ void Service::start(int port)
 
 	printf("started on port %i\n", port);
 
-	while (true) 
+	while (true)
 	{
 		SOCKET clientSocket = accept(serverSocket, nullptr, nullptr);
-		if (clientSocket != INVALID_SOCKET) 
+		if (clientSocket != INVALID_SOCKET)
 		{
 			handleRequest(clientSocket);
 		}
