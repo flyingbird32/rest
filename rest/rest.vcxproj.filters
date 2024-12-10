@@ -5,10 +5,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rest.h" />
-    <ClInclude Include="data\http_method.h" />
     <ClInclude Include="utils\parser.h" />
-    <ClInclude Include="data\warmup_request.h" />
-    <ClInclude Include="data\content_type.h" />
+    <ClInclude Include="data\request.h" />
     <ClInclude Include="utils\converter.h" />
+    <ClInclude Include="data\enums.h" />
   </ItemGroup>
 </Project>

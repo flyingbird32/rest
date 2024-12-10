@@ -3,15 +3,15 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <variant>
 
-#include "../data/content_type.h"
-#include "../data/http_method.h"
-#include "../data/warmup_request.h"
+#include "../data/enums.h"
+#include "../data/request.h"
 #include "converter.h"
 
 namespace parser
 {
-    WarmupRequest parseWarmup(std::string request)
+    Request parseWarmup(std::string request, SOCKET currentSocket)
     {
         std::istringstream stream(request);
         std::string line;
@@ -52,7 +52,7 @@ namespace parser
             contentType = converter::contentType(contentTypeStr);
         }
 
-        WarmupRequest warmupRequest(url, body, method);
+        Request warmupRequest(url, body, method);
         warmupRequest.authorization = headers["Authorization"];
         warmupRequest.host = headers["Host"];
         warmupRequest.accept = headers["Accept"];
@@ -61,6 +61,7 @@ namespace parser
         warmupRequest.connection = headers["Connection"];
         warmupRequest.contentType = contentType;
         warmupRequest.contentLength = headers.count("Content-Length") ? std::stoi(headers["Content-Length"]) : 0;
+        warmupRequest.response = Response(currentSocket);
 
         return warmupRequest;
     }

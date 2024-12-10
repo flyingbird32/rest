@@ -118,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,9 +131,8 @@
     <ClCompile Include="rest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="data\content_type.h" />
-    <ClInclude Include="data\http_method.h" />
-    <ClInclude Include="data\warmup_request.h" />
+    <ClInclude Include="data\enums.h" />
+    <ClInclude Include="data\request.h" />
     <ClInclude Include="rest.h" />
     <ClInclude Include="utils\parser.h" />
     <ClInclude Include="utils\converter.h" />

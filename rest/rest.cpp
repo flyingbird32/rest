@@ -27,18 +27,16 @@ void Service::handleRequest(SOCKET clientSocket)
 
 	buffer[bytesReceived] = '\0';
 	std::string request(buffer);
-	WarmupRequest warmupRequest = parser::parseWarmup(request);
+	Request warmupRequest = parser::parseWarmup(request, clientSocket);
 
-	printf("method: %s, url: %s, body: %s, content: %s\n", converter::httpMethodS(warmupRequest.method).c_str(), warmupRequest.routeUrl.c_str(), warmupRequest.body.c_str(), converter::contentTypeS(warmupRequest.contentType).c_str());
-
-	std::string response =
-		"HTTP/1.1 200 OK\r\n"
-		"Content-Type: text/plain\r\n"
-		"Content-Length: 7\r\n\r\n"
-		"awesome";
-
-	send(clientSocket, response.c_str(), response.size(), 0);
-	closesocket(clientSocket);
+	for (Route route : this->routes)
+	{
+		if (route.path == warmupRequest.routeUrl.c_str() && route.method == warmupRequest.method)
+		{
+			callRoute(route.handler, warmupRequest);
+			break;
+		}
+	}	
 }
 
 void Service::start(int port)
