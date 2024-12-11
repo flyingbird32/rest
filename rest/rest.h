@@ -32,8 +32,6 @@ namespace rest
 		void callRoute(void* handler, Request request);
 		void handleRequest(SOCKET clientSocket);
 	};
-
-	void test();
 }
 
 #endif

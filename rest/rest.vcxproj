@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="data\enums.h" />
     <ClInclude Include="data\request.h" />
+    <ClInclude Include="data\response.h" />
     <ClInclude Include="rest.h" />
     <ClInclude Include="utils\parser.h" />
     <ClInclude Include="utils\converter.h" />

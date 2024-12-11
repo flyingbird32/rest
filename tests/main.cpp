@@ -3,21 +3,20 @@
 
 void testMethod(Request request)
 {
-	printf("calling method: %s, %s\n", request.routeUrl.c_str(), toString(request.method).c_str());
-	request.response.go(200, "OK", "<h1>yay</h1>", CONTENT_TYPE::HTML);
+	printf("calling method: %s, %s\n", request.routeUrl.c_str(), getEnumString(request.method).c_str());
+
+	request.response.addHeader("Awesome-Header", "awesome");
+	request.response.setBody("<h1>hello!</h1>");
+	request.response.build(HTTP_STATUS_CODE::OK, CONTENT_TYPE::HTML);
 }
 
 void testPost(Request request)
 {
-	printf("calling method: %s, %s\nbody: %s\n", request.routeUrl.c_str(), toString(request.method).c_str(), request.body.c_str());
-
-	for (auto headers : request.additionalHeaders)
-	{
-		printf("%s : %s\n", headers.first.c_str(), headers.second.c_str());
-	}
-
+	printf("calling method: %s, %s\nbody: %s\n", request.routeUrl.c_str(), getEnumString(request.method).c_str(), request.body.c_str());
 	std::string body = "post request body: " + request.body;
-	request.response.go(200, "OK", body, CONTENT_TYPE::PLAIN_TEXT);
+
+	request.response.setBody(body);
+	request.response.build(HTTP_STATUS_CODE::OK, CONTENT_TYPE::PLAIN_TEXT);
 }
 
 int main()

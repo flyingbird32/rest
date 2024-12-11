@@ -27,16 +27,23 @@ void Service::handleRequest(SOCKET clientSocket)
 
 	buffer[bytesReceived] = '\0';
 	std::string request(buffer);
-	Request warmupRequest = parser::parseWarmup(request, clientSocket);
+	Request parsedRequest = parser::parseRequest(request, clientSocket);
 
 	for (Route route : this->routes)
 	{
-		if (route.path == warmupRequest.routeUrl.c_str() && route.method == warmupRequest.method)
+		if (route.path == parsedRequest.routeUrl.c_str() && route.method == parsedRequest.method)
 		{
-			callRoute(route.handler, warmupRequest);
+			callRoute(route.handler, parsedRequest);
 			break;
 		}
 	}
+
+	// fix this, because what? - also need better error handling
+	std::string notFoundHtml = "<head><title>404 Not Found</title></head><body><h1>404 Not Found</h1><p>The page you are looking for could not be found.</p></body>";
+
+	Response errorResponse(clientSocket);
+	errorResponse.setBody(notFoundHtml);
+	errorResponse.build(HTTP_STATUS_CODE::NOT_FOUND, CONTENT_TYPE::HTML);
 }
 
 void Service::start(int port)
@@ -66,9 +73,4 @@ void Service::start(int port)
 
 	closesocket(serverSocket);
 	WSACleanup();
-}
-
-void test()
-{
-	printf("test\n");
 }

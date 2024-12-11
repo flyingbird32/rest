@@ -9,5 +9,6 @@
     <ClInclude Include="data\request.h" />
     <ClInclude Include="utils\converter.h" />
     <ClInclude Include="data\enums.h" />
+    <ClInclude Include="data\response.h" />
   </ItemGroup>
 </Project>

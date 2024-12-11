@@ -4,15 +4,16 @@
 #include <string>
 #include <sstream>
 #include <variant>
+#include <unordered_set>
 
 #include "../data/enums.h"
 #include "../data/request.h"
+#include "../data/response.h"
 #include "converter.h"
-#include <unordered_set>
 
 namespace parser
 {
-    Request parseWarmup(std::string request, SOCKET currentSocket)
+    Request parseRequest(std::string request, SOCKET currentSocket)
     {
         std::istringstream stream(request);
         std::string line;
