@@ -8,6 +8,7 @@
 
 #include "./data/enums.h"
 #include "./data/request.h"
+#include "./data/endpoint.h"
 
 #ifndef REST_H
 #define REST_H
@@ -18,18 +19,18 @@ namespace rest
 	{
 	public:
 		void start(int port);
-		void registerEndpoint(const std::string& path, HTTP_METHOD requestMethod, void* method);
+		void registerEndpoint(const std::string& path, HTTP_METHOD method, Endpoint(*handler)(Request&));
 	private:
 		struct Route
 		{
 			std::string path;
 			HTTP_METHOD method;
-			void* handler;
+			Endpoint(*handler)(Request&);
 		};
 
 		std::vector<Route> routes;
 
-		void callRoute(void* handler, Request request);
+		void callRoute(void* handler, Request& request, SOCKET currnetSocket);
 		void handleRequest(SOCKET clientSocket);
 	};
 }

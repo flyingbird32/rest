@@ -84,106 +84,109 @@ enum class HTTP_STATUS_CODE
     NETWORK_AUTHENTICATION_REQUIRED = 511
 };
 
-template<typename T>
-inline std::string getEnumString(T enum_value);
-
-template<>
-inline std::string getEnumString(HTTP_STATUS_CODE code)
+namespace enums
 {
-    static const std::unordered_map<HTTP_STATUS_CODE, std::string> statusCodeMap = {
-        {HTTP_STATUS_CODE::CONTINUE, "Continue"},
-        {HTTP_STATUS_CODE::SWITCHING_PROTOCOLS, "Switching Protocols"},
-        {HTTP_STATUS_CODE::OK, "OK"},
-        {HTTP_STATUS_CODE::CREATED, "Created"},
-        {HTTP_STATUS_CODE::ACCEPTED, "Accepted"},
-        {HTTP_STATUS_CODE::NON_AUTHORITATIVE_INFORMATION, "Non-Authoritative Information"},
-        {HTTP_STATUS_CODE::NO_CONTENT, "No Content"},
-        {HTTP_STATUS_CODE::RESET_CONTENT, "Reset Content"},
-        {HTTP_STATUS_CODE::PARTIAL_CONTENT, "Partial Content"},
-        {HTTP_STATUS_CODE::MULTI_STATUS, "Multi-Status"},
-        {HTTP_STATUS_CODE::ALREADY_REPORTED, "Already Reported"},
-        {HTTP_STATUS_CODE::IM_USED, "IM Used"},
-        {HTTP_STATUS_CODE::MULTIPLE_CHOICES, "Multiple Choices"},
-        {HTTP_STATUS_CODE::MOVED_PERMANENTLY, "Moved Permanently"},
-        {HTTP_STATUS_CODE::FOUND, "Found"},
-        {HTTP_STATUS_CODE::SEE_OTHER, "See Other"},
-        {HTTP_STATUS_CODE::NOT_MODIFIED, "Not Modified"},
-        {HTTP_STATUS_CODE::USE_PROXY, "Use Proxy"},
-        {HTTP_STATUS_CODE::TEMPORARY_REDIRECT, "Temporary Redirect"},
-        {HTTP_STATUS_CODE::PERMANENT_REDIRECT, "Permanent Redirect"},
-        {HTTP_STATUS_CODE::BAD_REQUEST, "Bad Request"},
-        {HTTP_STATUS_CODE::UNAUTHORIZED, "Unauthorized"},
-        {HTTP_STATUS_CODE::PAYMENT_REQUIRED, "Payment Required"},
-        {HTTP_STATUS_CODE::FORBIDDEN, "Forbidden"},
-        {HTTP_STATUS_CODE::NOT_FOUND, "Not Found"},
-        {HTTP_STATUS_CODE::METHOD_NOT_ALLOWED, "Method Not Allowed"},
-        {HTTP_STATUS_CODE::NOT_ACCEPTABLE, "Not Acceptable"},
-        {HTTP_STATUS_CODE::PROXY_AUTHENTICATION_REQUIRED, "Proxy Authentication Required"},
-        {HTTP_STATUS_CODE::REQUEST_TIMEOUT, "Request Timeout"},
-        {HTTP_STATUS_CODE::CONFLICT, "Conflict"},
-        {HTTP_STATUS_CODE::GONE, "Gone"},
-        {HTTP_STATUS_CODE::LENGTH_REQUIRED, "Length Required"},
-        {HTTP_STATUS_CODE::PRECONDITION_FAILED, "Precondition Failed"},
-        {HTTP_STATUS_CODE::PAYLOAD_TOO_LARGE, "Payload Too Large"},
-        {HTTP_STATUS_CODE::URI_TOO_LONG, "URI Too Long"},
-        {HTTP_STATUS_CODE::UNSUPPORTED_MEDIA_TYPE, "Unsupported Media Type"},
-        {HTTP_STATUS_CODE::RANGE_NOT_SATISFIABLE, "Range Not Satisfiable"},
-        {HTTP_STATUS_CODE::EXPECTATION_FAILED, "Expectation Failed"},
-        {HTTP_STATUS_CODE::IM_A_TEAPOT, "I'm a Teapot"},
-        {HTTP_STATUS_CODE::MISDIRECTED_REQUEST, "Misdirected Request"},
-        {HTTP_STATUS_CODE::UNPROCESSABLE_ENTITY, "Unprocessable Entity"},
-        {HTTP_STATUS_CODE::LOCKED, "Locked"},
-        {HTTP_STATUS_CODE::FAILED_DEPENDENCY, "Failed Dependency"},
-        {HTTP_STATUS_CODE::TOO_EARLY, "Too Early"},
-        {HTTP_STATUS_CODE::UPGRADE_REQUIRED, "Upgrade Required"},
-        {HTTP_STATUS_CODE::PRECONDITION_REQUIRED, "Precondition Required"},
-        {HTTP_STATUS_CODE::TOO_MANY_REQUESTS, "Too Many Requests"},
-        {HTTP_STATUS_CODE::REQUEST_HEADER_FIELDS_TOO_LARGE, "Request Header Fields Too Large"},
-        {HTTP_STATUS_CODE::UNAVAILABLE_FOR_LEGAL_REASONS, "Unavailable For Legal Reasons"},
-        {HTTP_STATUS_CODE::INTERNAL_SERVER_ERROR, "Internal Server Error"},
-        {HTTP_STATUS_CODE::NOT_IMPLEMENTED, "Not Implemented"},
-        {HTTP_STATUS_CODE::BAD_GATEWAY, "Bad Gateway"},
-        {HTTP_STATUS_CODE::SERVICE_UNAVAILABLE, "Service Unavailable"},
-        {HTTP_STATUS_CODE::GATEWAY_TIMEOUT, "Gateway Timeout"},
-        {HTTP_STATUS_CODE::HTTP_VERSION_NOT_SUPPORTED, "HTTP Version Not Supported"},
-        {HTTP_STATUS_CODE::VARIANT_ALSO_NEGOTIATES, "Variant Also Negotiates"},
-        {HTTP_STATUS_CODE::INSUFFICIENT_STORAGE, "Insufficient Storage"},
-        {HTTP_STATUS_CODE::LOOP_DETECTED, "Loop Detected"},
-        {HTTP_STATUS_CODE::NOT_EXTENDED, "Not Extended"},
-        {HTTP_STATUS_CODE::NETWORK_AUTHENTICATION_REQUIRED, "Network Authentication Required"}
-    };
+    template<typename T>
+    inline std::string getEnumString(T enum_value);
 
-    auto it = statusCodeMap.find(code);
-    if (it != statusCodeMap.end()) {
-        return it->second;
-    }
-    else {
-        return "Unknown";
-    }
-}
-
-template<>
-inline std::string getEnumString(HTTP_METHOD method)
-{
-    switch (method)
+    template<>
+    inline std::string getEnumString(HTTP_STATUS_CODE code)
     {
-    case HTTP_METHOD::GET: return "GET";
-    case HTTP_METHOD::POST: return "POST";
-    case HTTP_METHOD::UNKNOWN: return "UNKNOWN";
-    default: return "INVALID";
-    }
-}
+        static const std::unordered_map<HTTP_STATUS_CODE, std::string> statusCodeMap = {
+            {HTTP_STATUS_CODE::CONTINUE, "Continue"},
+            {HTTP_STATUS_CODE::SWITCHING_PROTOCOLS, "Switching Protocols"},
+            {HTTP_STATUS_CODE::OK, "OK"},
+            {HTTP_STATUS_CODE::CREATED, "Created"},
+            {HTTP_STATUS_CODE::ACCEPTED, "Accepted"},
+            {HTTP_STATUS_CODE::NON_AUTHORITATIVE_INFORMATION, "Non-Authoritative Information"},
+            {HTTP_STATUS_CODE::NO_CONTENT, "No Content"},
+            {HTTP_STATUS_CODE::RESET_CONTENT, "Reset Content"},
+            {HTTP_STATUS_CODE::PARTIAL_CONTENT, "Partial Content"},
+            {HTTP_STATUS_CODE::MULTI_STATUS, "Multi-Status"},
+            {HTTP_STATUS_CODE::ALREADY_REPORTED, "Already Reported"},
+            {HTTP_STATUS_CODE::IM_USED, "IM Used"},
+            {HTTP_STATUS_CODE::MULTIPLE_CHOICES, "Multiple Choices"},
+            {HTTP_STATUS_CODE::MOVED_PERMANENTLY, "Moved Permanently"},
+            {HTTP_STATUS_CODE::FOUND, "Found"},
+            {HTTP_STATUS_CODE::SEE_OTHER, "See Other"},
+            {HTTP_STATUS_CODE::NOT_MODIFIED, "Not Modified"},
+            {HTTP_STATUS_CODE::USE_PROXY, "Use Proxy"},
+            {HTTP_STATUS_CODE::TEMPORARY_REDIRECT, "Temporary Redirect"},
+            {HTTP_STATUS_CODE::PERMANENT_REDIRECT, "Permanent Redirect"},
+            {HTTP_STATUS_CODE::BAD_REQUEST, "Bad Request"},
+            {HTTP_STATUS_CODE::UNAUTHORIZED, "Unauthorized"},
+            {HTTP_STATUS_CODE::PAYMENT_REQUIRED, "Payment Required"},
+            {HTTP_STATUS_CODE::FORBIDDEN, "Forbidden"},
+            {HTTP_STATUS_CODE::NOT_FOUND, "Not Found"},
+            {HTTP_STATUS_CODE::METHOD_NOT_ALLOWED, "Method Not Allowed"},
+            {HTTP_STATUS_CODE::NOT_ACCEPTABLE, "Not Acceptable"},
+            {HTTP_STATUS_CODE::PROXY_AUTHENTICATION_REQUIRED, "Proxy Authentication Required"},
+            {HTTP_STATUS_CODE::REQUEST_TIMEOUT, "Request Timeout"},
+            {HTTP_STATUS_CODE::CONFLICT, "Conflict"},
+            {HTTP_STATUS_CODE::GONE, "Gone"},
+            {HTTP_STATUS_CODE::LENGTH_REQUIRED, "Length Required"},
+            {HTTP_STATUS_CODE::PRECONDITION_FAILED, "Precondition Failed"},
+            {HTTP_STATUS_CODE::PAYLOAD_TOO_LARGE, "Payload Too Large"},
+            {HTTP_STATUS_CODE::URI_TOO_LONG, "URI Too Long"},
+            {HTTP_STATUS_CODE::UNSUPPORTED_MEDIA_TYPE, "Unsupported Media Type"},
+            {HTTP_STATUS_CODE::RANGE_NOT_SATISFIABLE, "Range Not Satisfiable"},
+            {HTTP_STATUS_CODE::EXPECTATION_FAILED, "Expectation Failed"},
+            {HTTP_STATUS_CODE::IM_A_TEAPOT, "I'm a Teapot"},
+            {HTTP_STATUS_CODE::MISDIRECTED_REQUEST, "Misdirected Request"},
+            {HTTP_STATUS_CODE::UNPROCESSABLE_ENTITY, "Unprocessable Entity"},
+            {HTTP_STATUS_CODE::LOCKED, "Locked"},
+            {HTTP_STATUS_CODE::FAILED_DEPENDENCY, "Failed Dependency"},
+            {HTTP_STATUS_CODE::TOO_EARLY, "Too Early"},
+            {HTTP_STATUS_CODE::UPGRADE_REQUIRED, "Upgrade Required"},
+            {HTTP_STATUS_CODE::PRECONDITION_REQUIRED, "Precondition Required"},
+            {HTTP_STATUS_CODE::TOO_MANY_REQUESTS, "Too Many Requests"},
+            {HTTP_STATUS_CODE::REQUEST_HEADER_FIELDS_TOO_LARGE, "Request Header Fields Too Large"},
+            {HTTP_STATUS_CODE::UNAVAILABLE_FOR_LEGAL_REASONS, "Unavailable For Legal Reasons"},
+            {HTTP_STATUS_CODE::INTERNAL_SERVER_ERROR, "Internal Server Error"},
+            {HTTP_STATUS_CODE::NOT_IMPLEMENTED, "Not Implemented"},
+            {HTTP_STATUS_CODE::BAD_GATEWAY, "Bad Gateway"},
+            {HTTP_STATUS_CODE::SERVICE_UNAVAILABLE, "Service Unavailable"},
+            {HTTP_STATUS_CODE::GATEWAY_TIMEOUT, "Gateway Timeout"},
+            {HTTP_STATUS_CODE::HTTP_VERSION_NOT_SUPPORTED, "HTTP Version Not Supported"},
+            {HTTP_STATUS_CODE::VARIANT_ALSO_NEGOTIATES, "Variant Also Negotiates"},
+            {HTTP_STATUS_CODE::INSUFFICIENT_STORAGE, "Insufficient Storage"},
+            {HTTP_STATUS_CODE::LOOP_DETECTED, "Loop Detected"},
+            {HTTP_STATUS_CODE::NOT_EXTENDED, "Not Extended"},
+            {HTTP_STATUS_CODE::NETWORK_AUTHENTICATION_REQUIRED, "Network Authentication Required"}
+        };
 
-template<>
-inline std::string getEnumString(CONTENT_TYPE content)
-{
-    switch (content)
+        auto it = statusCodeMap.find(code);
+        if (it != statusCodeMap.end()) {
+            return it->second;
+        }
+        else {
+            return "Unknown";
+        }
+    }
+
+    template<>
+    inline std::string getEnumString(HTTP_METHOD method)
     {
-    case CONTENT_TYPE::FORM_URLENCODED: return "application/x-www-form-urlencoded";
-    case CONTENT_TYPE::JSON: return "application/json";
-    case CONTENT_TYPE::PLAIN_TEXT: return "text/plain";
-    case CONTENT_TYPE::HTML: return "text/html";
-    case CONTENT_TYPE::XML: return "application/xml";
-    default: return "UNKNOWN";
+        switch (method)
+        {
+        case HTTP_METHOD::GET: return "GET";
+        case HTTP_METHOD::POST: return "POST";
+        case HTTP_METHOD::UNKNOWN: return "UNKNOWN";
+        default: return "INVALID";
+        }
+    }
+
+    template<>
+    inline std::string getEnumString(CONTENT_TYPE content)
+    {
+        switch (content)
+        {
+        case CONTENT_TYPE::FORM_URLENCODED: return "application/x-www-form-urlencoded";
+        case CONTENT_TYPE::JSON: return "application/json";
+        case CONTENT_TYPE::PLAIN_TEXT: return "text/plain";
+        case CONTENT_TYPE::HTML: return "text/html";
+        case CONTENT_TYPE::XML: return "application/xml";
+        default: return "UNKNOWN";
+        }
     }
 }

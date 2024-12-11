@@ -15,14 +15,32 @@ private:
     SOCKET clientSocket;
     std::string body;
     std::unordered_map<std::string, std::string> headers;
-
 public:
-
     Response() : clientSocket(INVALID_SOCKET) {}
 
     Response(SOCKET currentSocket)
     {
         this->clientSocket = currentSocket;
+    }
+
+    inline bool isReadyToSend() const
+    {
+        return !body.empty();
+    }
+
+    inline std::unordered_map<std::string, std::string> getHeaders()
+    {
+        return this->headers;
+    }
+
+    inline SOCKET getClientSocket()
+    {
+        return this->clientSocket;
+    }
+
+    inline std::string getBody()
+    {
+        return this->body;
     }
 
     inline void setBody(std::string _body)
@@ -34,23 +52,5 @@ public:
     inline void addHeader(std::string name, std::string value)
     {
         headers[name] = value;
-    }
-
-    inline void build(HTTP_STATUS_CODE statusCode, CONTENT_TYPE contentType)
-    {
-        std::stringstream response;
-        response << "HTTP/1.1 " << static_cast<int>(statusCode) << " " << getEnumString(statusCode) << "\r\n";
-        response << "Content-Type: " << getEnumString(contentType) << "\r\n";
-
-        for (const auto& header : headers)
-        {
-            response << header.first << ": " << header.second << "\r\n";
-        }
-
-        response << "\r\n";
-        response << this->body;
-
-        send(clientSocket, response.str().c_str(), static_cast<int>(response.str().size()), 0);
-        closesocket(clientSocket);
     }
 };

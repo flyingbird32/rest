@@ -10,5 +10,6 @@
     <ClInclude Include="utils\converter.h" />
     <ClInclude Include="data\enums.h" />
     <ClInclude Include="data\response.h" />
+    <ClInclude Include="data\endpoint.h" />
   </ItemGroup>
 </Project>
