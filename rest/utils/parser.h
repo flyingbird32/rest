@@ -8,6 +8,7 @@
 #include "../data/enums.h"
 #include "../data/request.h"
 #include "converter.h"
+#include <unordered_set>
 
 namespace parser
 {
@@ -25,6 +26,7 @@ namespace parser
         std::string url = line.substr(methodEnd + 1, urlEnd - methodEnd - 1);
 
         std::unordered_map<std::string, std::string> headers;
+        std::unordered_map<std::string, std::string> additionalHeaders;
         while (std::getline(stream, line) && !line.empty() && line != "\r")
         {
             size_t colonPos = line.find(':');
@@ -62,6 +64,21 @@ namespace parser
         warmupRequest.contentType = contentType;
         warmupRequest.contentLength = headers.count("Content-Length") ? std::stoi(headers["Content-Length"]) : 0;
         warmupRequest.response = Response(currentSocket);
+
+        std::unordered_set<std::string> predefinedHeaders = {
+            "Authorization", "Host", "Accept", "User-Agent",
+            "Accept-Encoding", "Connection", "Content-Type", "Content-Length"
+        };
+
+        for (const auto& [headerName, headerValue] : headers)
+        {
+            if (predefinedHeaders.find(headerName) == predefinedHeaders.end())
+            {
+                additionalHeaders[headerName] = headerValue;
+            }
+        }
+
+        warmupRequest.additionalHeaders = additionalHeaders;
 
         return warmupRequest;
     }

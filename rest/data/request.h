@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 
+#include <unordered_map>
 #include <string>
 #include "enums.h"
 #include <iostream>
@@ -57,8 +58,8 @@ public:
         response << "\r\n";
         response << body;
 
-        send(clientSocket, response.str().c_str(), static_cast<int>(response.str().size()), 0);\
-            closesocket(clientSocket);
+        send(clientSocket, response.str().c_str(), static_cast<int>(response.str().size()), 0);
+        closesocket(clientSocket);
     }
 };
 
@@ -83,4 +84,5 @@ struct Request
     std::string connection;
     int contentLength;
     Response response;
+    std::unordered_map<std::string, std::string> additionalHeaders;
 };
