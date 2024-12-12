@@ -32,7 +32,8 @@ namespace converter
 
     HTTP_METHOD httpMethod(const std::string& methodStr)
     {
-        static const std::unordered_map<std::string, HTTP_METHOD> methodMap = {
+        static const std::unordered_map<std::string, HTTP_METHOD> methodMap = 
+        {
             {"POST", HTTP_METHOD::POST},
             {"GET", HTTP_METHOD::GET}
         };
@@ -43,7 +44,8 @@ namespace converter
 
     CONTENT_TYPE contentType(const std::string& contentTypeStr)
     {
-        static const std::unordered_map<std::string, CONTENT_TYPE> contentTypeMap = {
+        static const std::unordered_map<std::string, CONTENT_TYPE> contentTypeMap = 
+        {
             {"text/plain", CONTENT_TYPE::TEXT_PLAIN},
             {"text/html", CONTENT_TYPE::TEXT_HTML},
             {"text/css", CONTENT_TYPE::TEXT_CSS},

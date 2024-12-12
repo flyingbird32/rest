@@ -126,7 +126,8 @@ namespace enums
     template<>
     inline std::string getEnumString(HTTP_STATUS_CODE code)
     {
-        static const std::unordered_map<HTTP_STATUS_CODE, std::string> statusCodeMap = {
+        static const std::unordered_map<HTTP_STATUS_CODE, std::string> statusCodeMap =
+        {
             {HTTP_STATUS_CODE::CONTINUE, "Continue"},
             {HTTP_STATUS_CODE::SWITCHING_PROTOCOLS, "Switching Protocols"},
             {HTTP_STATUS_CODE::OK, "OK"},
@@ -190,12 +191,7 @@ namespace enums
         };
 
         auto it = statusCodeMap.find(code);
-        if (it != statusCodeMap.end()) {
-            return it->second;
-        }
-        else {
-            return "Unknown";
-        }
+        return (it != statusCodeMap.end()) ? it->second : "Unknown";
     }
 
     template<>
@@ -213,48 +209,51 @@ namespace enums
     template<>
     inline std::string getEnumString(CONTENT_TYPE content)
     {
-        switch (content)
+        static const std::unordered_map<CONTENT_TYPE, std::string> contentTypeMap =
         {
-        case CONTENT_TYPE::TEXT_PLAIN: return "text/plain";
-        case CONTENT_TYPE::TEXT_HTML: return "text/html";
-        case CONTENT_TYPE::TEXT_CSS: return "text/css";
-        case CONTENT_TYPE::TEXT_JAVASCRIPT: return "text/javascript";
-        case CONTENT_TYPE::TEXT_XML: return "text/xml";
-        case CONTENT_TYPE::TEXT_CSV: return "text/csv";
-        case CONTENT_TYPE::APPLICATION_JSON: return "application/json";
-        case CONTENT_TYPE::APPLICATION_XML: return "application/xml";
-        case CONTENT_TYPE::APPLICATION_FORM_URLENCODED: return "application/x-www-form-urlencoded";
-        case CONTENT_TYPE::APPLICATION_JAVASCRIPT: return "application/javascript";
-        case CONTENT_TYPE::APPLICATION_PDF: return "application/pdf";
-        case CONTENT_TYPE::APPLICATION_ZIP: return "application/zip";
-        case CONTENT_TYPE::APPLICATION_GZIP: return "application/gzip";
-        case CONTENT_TYPE::APPLICATION_MS_EXCEL: return "application/vnd.ms-excel";
-        case CONTENT_TYPE::APPLICATION_MS_EXCEL_XLSX: return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        case CONTENT_TYPE::APPLICATION_MS_POWERPOINT: return "application/vnd.ms-powerpoint";
-        case CONTENT_TYPE::APPLICATION_MS_POWERPOINT_PPTX: return "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-        case CONTENT_TYPE::APPLICATION_MS_WORD: return "application/msword";
-        case CONTENT_TYPE::APPLICATION_MS_WORD_DOCX: return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-        case CONTENT_TYPE::IMAGE_JPEG: return "image/jpeg";
-        case CONTENT_TYPE::IMAGE_PNG: return "image/png";
-        case CONTENT_TYPE::IMAGE_GIF: return "image/gif";
-        case CONTENT_TYPE::IMAGE_WEBP: return "image/webp";
-        case CONTENT_TYPE::IMAGE_BMP: return "image/bmp";
-        case CONTENT_TYPE::IMAGE_SVG_XML: return "image/svg+xml";
-        case CONTENT_TYPE::AUDIO_MPEG: return "audio/mpeg";
-        case CONTENT_TYPE::AUDIO_OGG: return "audio/ogg";
-        case CONTENT_TYPE::AUDIO_WAV: return "audio/wav";
-        case CONTENT_TYPE::VIDEO_MP4: return "video/mp4";
-        case CONTENT_TYPE::VIDEO_MPEG: return "video/mpeg";
-        case CONTENT_TYPE::VIDEO_WEBM: return "video/webm";
-        case CONTENT_TYPE::VIDEO_OGG: return "video/ogg";
-        case CONTENT_TYPE::MULTIPART_FORM_DATA: return "multipart/form-data";
-        case CONTENT_TYPE::MULTIPART_BYTERANGES: return "multipart/byteranges";
-        case CONTENT_TYPE::APPLICATION_OCTET_STREAM: return "application/octet-stream";
-        case CONTENT_TYPE::APPLICATION_RTF: return "application/rtf";
-        case CONTENT_TYPE::APPLICATION_SQL: return "application/sql";
-        case CONTENT_TYPE::APPLICATION_WASM: return "application/wasm";
-        case CONTENT_TYPE::APPLICATION_MPKG: return "application/vnd.apple.installer+xml";
-        default: return "UNKNOWN";
-        }
+            {CONTENT_TYPE::TEXT_PLAIN, "text/plain"},
+            {CONTENT_TYPE::TEXT_HTML, "text/html"},
+            {CONTENT_TYPE::TEXT_CSS, "text/css"},
+            {CONTENT_TYPE::TEXT_JAVASCRIPT, "text/javascript"},
+            {CONTENT_TYPE::TEXT_XML, "text/xml"},
+            {CONTENT_TYPE::TEXT_CSV, "text/csv"},
+            {CONTENT_TYPE::APPLICATION_JSON, "application/json"},
+            {CONTENT_TYPE::APPLICATION_XML, "application/xml"},
+            {CONTENT_TYPE::APPLICATION_FORM_URLENCODED, "application/x-www-form-urlencoded"},
+            {CONTENT_TYPE::APPLICATION_JAVASCRIPT, "application/javascript"},
+            {CONTENT_TYPE::APPLICATION_PDF, "application/pdf"},
+            {CONTENT_TYPE::APPLICATION_ZIP, "application/zip"},
+            {CONTENT_TYPE::APPLICATION_GZIP, "application/gzip"},
+            {CONTENT_TYPE::APPLICATION_MS_EXCEL, "application/vnd.ms-excel"},
+            {CONTENT_TYPE::APPLICATION_MS_EXCEL_XLSX, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+            {CONTENT_TYPE::APPLICATION_MS_POWERPOINT, "application/vnd.ms-powerpoint"},
+            {CONTENT_TYPE::APPLICATION_MS_POWERPOINT_PPTX, "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
+            {CONTENT_TYPE::APPLICATION_MS_WORD, "application/msword"},
+            {CONTENT_TYPE::APPLICATION_MS_WORD_DOCX, "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+            {CONTENT_TYPE::IMAGE_JPEG, "image/jpeg"},
+            {CONTENT_TYPE::IMAGE_PNG, "image/png"},
+            {CONTENT_TYPE::IMAGE_GIF, "image/gif"},
+            {CONTENT_TYPE::IMAGE_WEBP, "image/webp"},
+            {CONTENT_TYPE::IMAGE_BMP, "image/bmp"},
+            {CONTENT_TYPE::IMAGE_SVG_XML, "image/svg+xml"},
+            {CONTENT_TYPE::AUDIO_MPEG, "audio/mpeg"},
+            {CONTENT_TYPE::AUDIO_OGG, "audio/ogg"},
+            {CONTENT_TYPE::AUDIO_WAV, "audio/wav"},
+            {CONTENT_TYPE::VIDEO_MP4, "video/mp4"},
+            {CONTENT_TYPE::VIDEO_MPEG, "video/mpeg"},
+            {CONTENT_TYPE::VIDEO_WEBM, "video/webm"},
+            {CONTENT_TYPE::VIDEO_OGG, "video/ogg"},
+            {CONTENT_TYPE::MULTIPART_FORM_DATA, "multipart/form-data"},
+            {CONTENT_TYPE::MULTIPART_BYTERANGES, "multipart/byteranges"},
+            {CONTENT_TYPE::APPLICATION_OCTET_STREAM, "application/octet-stream"},
+            {CONTENT_TYPE::APPLICATION_RTF, "application/rtf"},
+            {CONTENT_TYPE::APPLICATION_SQL, "application/sql"},
+            {CONTENT_TYPE::APPLICATION_WASM, "application/wasm"},
+            {CONTENT_TYPE::APPLICATION_MPKG, "application/vnd.apple.installer+xml"},
+            {CONTENT_TYPE::UNKNOWN, "UNKNOWN"}
+        };
+
+        auto it = contentTypeMap.find(content);
+        return (it != contentTypeMap.end()) ? it->second : "UNKNOWN";
     }
 }
