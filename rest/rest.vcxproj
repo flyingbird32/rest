@@ -136,6 +136,7 @@
     <ClInclude Include="data\request.h" />
     <ClInclude Include="data\response.h" />
     <ClInclude Include="rest.h" />
+    <ClInclude Include="utils\logger.h" />
     <ClInclude Include="utils\parser.h" />
     <ClInclude Include="utils\converter.h" />
   </ItemGroup>

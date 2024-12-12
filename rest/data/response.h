@@ -17,11 +17,6 @@ private:
 public:
     Response() {}
 
-    inline bool isReadyToSend() const
-    {
-        return !body.empty();
-    }
-
     inline std::unordered_map<std::string, std::string> getHeaders()
     {
         return this->headers;

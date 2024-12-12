@@ -6,6 +6,9 @@
 #include <variant>
 #include <unordered_set>
 
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
 #include "../data/enums.h"
 #include "../data/request.h"
 #include "../data/response.h"
@@ -13,6 +16,20 @@
 
 namespace parser
 {
+    std::string getClientIpAddress(SOCKET clientSocket)
+    {
+        sockaddr_in clientAddr;
+        int addrSize = sizeof(clientAddr);
+        char ipBuffer[INET_ADDRSTRLEN];
+
+        if (getpeername(clientSocket, (sockaddr*)&clientAddr, &addrSize) == 0) {
+            inet_ntop(AF_INET, &clientAddr.sin_addr, ipBuffer, sizeof(ipBuffer));
+            return std::string(ipBuffer);
+        }
+
+        return "unknown";
+    }
+
     Request parseRequest(std::string request, SOCKET currentSocket)
     {
         std::istringstream stream(request);
@@ -55,16 +72,16 @@ namespace parser
             contentType = converter::contentType(contentTypeStr);
         }
 
-        Request warmupRequest(url, body, method);
-        warmupRequest.authorization = headers["Authorization"];
-        warmupRequest.host = headers["Host"];
-        warmupRequest.accept = headers["Accept"];
-        warmupRequest.userAgent = headers["User-Agent"];
-        warmupRequest.acceptEncoding = headers["Accept-Encoding"];
-        warmupRequest.connection = headers["Connection"];
-        warmupRequest.contentType = contentType;
-        warmupRequest.contentLength = headers.count("Content-Length") ? std::stoi(headers["Content-Length"]) : 0;
-        warmupRequest.response = Response();
+        Request parsedRequest(url, body, method);
+        parsedRequest.authorization = headers["Authorization"];
+        parsedRequest.host = headers["Host"];
+        parsedRequest.accept = headers["Accept"];
+        parsedRequest.userAgent = headers["User-Agent"];
+        parsedRequest.acceptEncoding = headers["Accept-Encoding"];
+        parsedRequest.connection = headers["Connection"];
+        parsedRequest.contentType = contentType;
+        parsedRequest.contentLength = headers.count("Content-Length") ? std::stoi(headers["Content-Length"]) : 0;
+        parsedRequest.response = Response();
 
         std::unordered_set<std::string> predefinedHeaders = {
             "Authorization", "Host", "Accept", "User-Agent",
@@ -79,8 +96,9 @@ namespace parser
             }
         }
 
-        warmupRequest.additionalHeaders = additionalHeaders;
+        parsedRequest.additionalHeaders = additionalHeaders;
+        parsedRequest.ipAddress = getClientIpAddress(currentSocket);
 
-        return warmupRequest;
+        return parsedRequest;
     }
 }

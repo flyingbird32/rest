@@ -18,9 +18,13 @@ namespace rest
 	class Service
 	{
 	public:
+
+		Service();
+
 		void start(int port);
 		void registerEndpoint(const std::string& path, HTTP_METHOD method, Endpoint(*handler)(Request&));
 		void setStaticDirectory(const std::string& directory);
+		void logConnections(bool value);
 	private:
 		struct Route
 		{
@@ -31,6 +35,7 @@ namespace rest
 
 		std::vector<Route> routes;
 		std::string staticDirectory;
+		bool shouldLogConnections;
 
 		void callRoute(void* handler, Request& request, SOCKET currnetSocket);
 		void handleRequest(SOCKET clientSocket);

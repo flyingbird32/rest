@@ -5,19 +5,71 @@
 #include "utils/parser.h"
 #include "rest.h"
 #include "data/endpoint.h"
+#include "utils/logger.h"
 
 using namespace rest;
+
+Service::Service()
+{
+    std::string art = R"(
+        
+                             ,--.'|_   
+  __  ,-.                    |  | :,'  
+,' ,'/ /|          .--.--.   :  : ' :  
+'  | |' | ,---.   /  /    '.;__,'  /   
+|  |   ,'/     \ |  :  /`./|  |   |    
+'  :  / /    /  ||  :  ;_  :__,'| :    
+|  | ' .    ' / | \  \    `. '  : |__  
+;  : | '   ;   /|  `----.   \|  | '.'| 
+|  , ; '   |  / | /  /`--'  /;  :    ; 
+ ---'  |   :    |'--'.     / |  ,   /  
+        \   \  /   `--'---'   ---`-'   
+         `----'                        
+                                       
+        )";
+
+    printf("%s\n", art.c_str());
+}
 
 void Service::registerEndpoint(const std::string& path, HTTP_METHOD method, Endpoint(*handler)(Request&))
 {
     routes.push_back({ path, method, handler });
+    LogInfo("[%s] %s - registered", enums::getEnumString(method).c_str(), path.c_str());
 }
 
-// TODO: add body check
+void Service::logConnections(bool value)
+{
+    LogWarning("logging connections, not recommended for production");
+    this->shouldLogConnections = value;
+}
+
 void Service::callRoute(void* handler, Request& request, SOCKET currentSocket)
 {
     Endpoint endpointData = reinterpret_cast<Endpoint(*)(Request&)>(handler)(request);
     auto statusCode = endpointData.getStatusCode();
+
+    if (shouldLogConnections)
+    {
+        std::string sanitizedUserAgent = converter::sanitizeString(request.userAgent);
+        std::string sanitizedIpAddress = converter::sanitizeString(request.ipAddress);
+
+        LogInfo("[%s] %s - %s (%s)",
+            enums::getEnumString(request.method).c_str(),
+            request.routeUrl.c_str(),
+            sanitizedUserAgent.c_str(),
+            sanitizedIpAddress.c_str());
+    }
+
+    std::string responseBody = request.response.getBody();
+
+    if (responseBody.empty())
+    {
+        LogError("builder has no body for [%s] %s. defaulting to empty body",
+            enums::getEnumString(request.method).c_str(), request.routeUrl.c_str());
+        responseBody = "";
+    }
+
+    request.response.addHeader("Content-Length", std::to_string(responseBody.size()));
 
     std::stringstream response;
     response << "HTTP/1.1 " << static_cast<int>(statusCode) << " " << enums::getEnumString(statusCode) << "\r\n";
@@ -28,8 +80,7 @@ void Service::callRoute(void* handler, Request& request, SOCKET currentSocket)
         response << header.first << ": " << header.second << "\r\n";
     }
 
-    response << "\r\n";
-    response << request.response.getBody();
+    response << "\r\n" << responseBody;
 
     send(currentSocket, response.str().c_str(), static_cast<int>(response.str().size()), 0);
     closesocket(currentSocket);
@@ -127,7 +178,7 @@ bool Service::doesStaticDirectoryExist()
 
     if (!std::filesystem::is_directory(path))
     {
-        // proper log
+        LogError("static directory '%s' doesn't exist", path.c_str());
         return false;
     }
 
@@ -204,7 +255,7 @@ void Service::start(int port)
     bind(serverSocket, (sockaddr*)&serverAddress, sizeof(serverAddress));
     listen(serverSocket, SOMAXCONN);
 
-    printf("started server on port %i\n", port);
+    LogInfo("server started on port: %i", port);
 
     // sets up fd_set structures for monitoring sockets
     fd_set masterSet, readSet;
@@ -222,7 +273,7 @@ void Service::start(int port)
 
         if (activity == SOCKET_ERROR)
         {
-            printf("select error: %d\n", WSAGetLastError());
+            LogError("select error %d\n", WSAGetLastError());
             break;
         }
 

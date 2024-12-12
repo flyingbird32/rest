@@ -14,6 +14,22 @@ namespace converter
         return (start == std::string::npos) ? "" : str.substr(start, end - start + 1);
     }
 
+    std::string sanitizeString(const std::string& input)
+    {
+        std::string sanitized = input;
+
+        sanitized.erase(std::remove_if(sanitized.begin(), sanitized.end(),
+            [](unsigned char c) {
+                return !isprint(c);
+            }),
+            sanitized.end());
+
+        std::replace(sanitized.begin(), sanitized.end(), '\n', ' ');
+        std::replace(sanitized.begin(), sanitized.end(), '\r', ' ');
+
+        return sanitized;
+    }
+
     HTTP_METHOD httpMethod(const std::string& methodStr)
     {
         static const std::unordered_map<std::string, HTTP_METHOD> methodMap = {

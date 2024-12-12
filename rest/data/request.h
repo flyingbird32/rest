@@ -27,6 +27,7 @@ struct Request
     std::string userAgent;
     std::string acceptEncoding;
     std::string connection;
+    std::string ipAddress;
     int contentLength;
     Response response;
     std::unordered_map<std::string, std::string> additionalHeaders;

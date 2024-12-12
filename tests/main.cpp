@@ -3,6 +3,7 @@
 
 Endpoint testMethod(Request& request)
 {
+
 	request.response.addHeader("Awesome-Header", "awesome");
 	request.response.setBody("<h1>hello!</h1>");
 
@@ -20,9 +21,11 @@ Endpoint testPost(Request& request)
 int main()
 {
 	rest::Service testService;
+
 	testService.registerEndpoint("/what", HTTP_METHOD::POST, testPost);
 	testService.registerEndpoint("/test", HTTP_METHOD::GET, testMethod);
 	testService.setStaticDirectory("static");
+	testService.logConnections(true);
 	testService.start(3200);
 
 	return 0;
