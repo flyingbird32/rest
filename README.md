@@ -1,6 +1,6 @@
 
 # rest - a c++ rest api framework
-this project was created as a personal learning experience to understand how rest apis work by building one from scratch in c++. it provides a lightweight, dependency-free framework for creating and managing restful apis in c++.
+this project was created as a personal learning experience to understand how rest apis work behind the scenes by building one from scratch in c++. it provides a lightweight, dependency-free framework for creating and managing restful apis in c++.
 
 ## example
 
