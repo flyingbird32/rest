@@ -12,11 +12,45 @@ enum class HTTP_METHOD
 
 enum class CONTENT_TYPE
 {
-    FORM_URLENCODED,
-    JSON,
-    PLAIN_TEXT,
-    XML,
-    HTML,
+    TEXT_PLAIN,
+    TEXT_HTML,
+    TEXT_CSS,
+    TEXT_JAVASCRIPT,
+    TEXT_XML,
+    TEXT_CSV,
+    APPLICATION_JSON,
+    APPLICATION_XML,
+    APPLICATION_FORM_URLENCODED,
+    APPLICATION_JAVASCRIPT,
+    APPLICATION_PDF,
+    APPLICATION_ZIP,
+    APPLICATION_GZIP,
+    APPLICATION_MS_EXCEL,
+    APPLICATION_MS_EXCEL_XLSX,
+    APPLICATION_MS_POWERPOINT,
+    APPLICATION_MS_POWERPOINT_PPTX,
+    APPLICATION_MS_WORD,
+    APPLICATION_MS_WORD_DOCX,
+    IMAGE_JPEG,
+    IMAGE_PNG,
+    IMAGE_GIF,
+    IMAGE_WEBP,
+    IMAGE_BMP,
+    IMAGE_SVG_XML,
+    AUDIO_MPEG,
+    AUDIO_OGG,
+    AUDIO_WAV,
+    VIDEO_MP4,
+    VIDEO_MPEG,
+    VIDEO_WEBM,
+    VIDEO_OGG,
+    MULTIPART_FORM_DATA,
+    MULTIPART_BYTERANGES,
+    APPLICATION_OCTET_STREAM,
+    APPLICATION_RTF,
+    APPLICATION_SQL,
+    APPLICATION_WASM,
+    APPLICATION_MPKG,
     UNKNOWN
 };
 
@@ -181,11 +215,45 @@ namespace enums
     {
         switch (content)
         {
-        case CONTENT_TYPE::FORM_URLENCODED: return "application/x-www-form-urlencoded";
-        case CONTENT_TYPE::JSON: return "application/json";
-        case CONTENT_TYPE::PLAIN_TEXT: return "text/plain";
-        case CONTENT_TYPE::HTML: return "text/html";
-        case CONTENT_TYPE::XML: return "application/xml";
+        case CONTENT_TYPE::TEXT_PLAIN: return "text/plain";
+        case CONTENT_TYPE::TEXT_HTML: return "text/html";
+        case CONTENT_TYPE::TEXT_CSS: return "text/css";
+        case CONTENT_TYPE::TEXT_JAVASCRIPT: return "text/javascript";
+        case CONTENT_TYPE::TEXT_XML: return "text/xml";
+        case CONTENT_TYPE::TEXT_CSV: return "text/csv";
+        case CONTENT_TYPE::APPLICATION_JSON: return "application/json";
+        case CONTENT_TYPE::APPLICATION_XML: return "application/xml";
+        case CONTENT_TYPE::APPLICATION_FORM_URLENCODED: return "application/x-www-form-urlencoded";
+        case CONTENT_TYPE::APPLICATION_JAVASCRIPT: return "application/javascript";
+        case CONTENT_TYPE::APPLICATION_PDF: return "application/pdf";
+        case CONTENT_TYPE::APPLICATION_ZIP: return "application/zip";
+        case CONTENT_TYPE::APPLICATION_GZIP: return "application/gzip";
+        case CONTENT_TYPE::APPLICATION_MS_EXCEL: return "application/vnd.ms-excel";
+        case CONTENT_TYPE::APPLICATION_MS_EXCEL_XLSX: return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        case CONTENT_TYPE::APPLICATION_MS_POWERPOINT: return "application/vnd.ms-powerpoint";
+        case CONTENT_TYPE::APPLICATION_MS_POWERPOINT_PPTX: return "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+        case CONTENT_TYPE::APPLICATION_MS_WORD: return "application/msword";
+        case CONTENT_TYPE::APPLICATION_MS_WORD_DOCX: return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        case CONTENT_TYPE::IMAGE_JPEG: return "image/jpeg";
+        case CONTENT_TYPE::IMAGE_PNG: return "image/png";
+        case CONTENT_TYPE::IMAGE_GIF: return "image/gif";
+        case CONTENT_TYPE::IMAGE_WEBP: return "image/webp";
+        case CONTENT_TYPE::IMAGE_BMP: return "image/bmp";
+        case CONTENT_TYPE::IMAGE_SVG_XML: return "image/svg+xml";
+        case CONTENT_TYPE::AUDIO_MPEG: return "audio/mpeg";
+        case CONTENT_TYPE::AUDIO_OGG: return "audio/ogg";
+        case CONTENT_TYPE::AUDIO_WAV: return "audio/wav";
+        case CONTENT_TYPE::VIDEO_MP4: return "video/mp4";
+        case CONTENT_TYPE::VIDEO_MPEG: return "video/mpeg";
+        case CONTENT_TYPE::VIDEO_WEBM: return "video/webm";
+        case CONTENT_TYPE::VIDEO_OGG: return "video/ogg";
+        case CONTENT_TYPE::MULTIPART_FORM_DATA: return "multipart/form-data";
+        case CONTENT_TYPE::MULTIPART_BYTERANGES: return "multipart/byteranges";
+        case CONTENT_TYPE::APPLICATION_OCTET_STREAM: return "application/octet-stream";
+        case CONTENT_TYPE::APPLICATION_RTF: return "application/rtf";
+        case CONTENT_TYPE::APPLICATION_SQL: return "application/sql";
+        case CONTENT_TYPE::APPLICATION_WASM: return "application/wasm";
+        case CONTENT_TYPE::APPLICATION_MPKG: return "application/vnd.apple.installer+xml";
         default: return "UNKNOWN";
         }
     }

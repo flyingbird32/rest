@@ -20,6 +20,7 @@ namespace rest
 	public:
 		void start(int port);
 		void registerEndpoint(const std::string& path, HTTP_METHOD method, Endpoint(*handler)(Request&));
+		void setStaticDirectory(const std::string& directory);
 	private:
 		struct Route
 		{
@@ -29,9 +30,13 @@ namespace rest
 		};
 
 		std::vector<Route> routes;
+		std::string staticDirectory;
 
 		void callRoute(void* handler, Request& request, SOCKET currnetSocket);
 		void handleRequest(SOCKET clientSocket);
+		bool doesStaticDirectoryExist();
+		void renderFile(const std::string& filePath, SOCKET currentSocket);
+		void send404Response(SOCKET currentSocket);
 	};
 }
 

@@ -12,16 +12,10 @@
 struct Response
 {
 private:
-    SOCKET clientSocket;
     std::string body;
     std::unordered_map<std::string, std::string> headers;
 public:
-    Response() : clientSocket(INVALID_SOCKET) {}
-
-    Response(SOCKET currentSocket)
-    {
-        this->clientSocket = currentSocket;
-    }
+    Response() {}
 
     inline bool isReadyToSend() const
     {
@@ -31,11 +25,6 @@ public:
     inline std::unordered_map<std::string, std::string> getHeaders()
     {
         return this->headers;
-    }
-
-    inline SOCKET getClientSocket()
-    {
-        return this->clientSocket;
     }
 
     inline std::string getBody()

@@ -64,7 +64,7 @@ namespace parser
         warmupRequest.connection = headers["Connection"];
         warmupRequest.contentType = contentType;
         warmupRequest.contentLength = headers.count("Content-Length") ? std::stoi(headers["Content-Length"]) : 0;
-        warmupRequest.response = Response(currentSocket);
+        warmupRequest.response = Response();
 
         std::unordered_set<std::string> predefinedHeaders = {
             "Authorization", "Host", "Accept", "User-Agent",
