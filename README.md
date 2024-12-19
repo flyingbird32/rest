@@ -52,9 +52,9 @@ int main()
 
 ```
 
-![showcase](https://cdn.discordapp.com/attachments/1316828170573320305/1319355614895542355/image.png?ex=6765a92b&is=676457ab&hm=2f80b514acbfd6f7c08bc6b5806b0ff0a8cf849278446770994819f4de7a7d86&)
+![showcase](https://raw.githubusercontent.com/flyingbird32/rest/main/images/preview1.png)
 
-![showcase2](https://cdn.discordapp.com/attachments/1316828170573320305/1319355750140870656/image.png?ex=6765a94b&is=676457cb&hm=8aa143afa529a080c66fcb9e0eb778f1d4aa9add2f912f3ab7f73375479a309d&)
+![showcase2](https://raw.githubusercontent.com/flyingbird32/rest/main/images/preview2.png)
 
 see more examples in the [tests](https://github.com/flyingbird32/rest/tree/main/tests) folder
 
