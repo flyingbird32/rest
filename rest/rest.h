@@ -9,6 +9,7 @@
 #include "./data/enums.h"
 #include "./data/request.h"
 #include "./data/endpoint.h"
+#include "./data/base_controller.h"
 
 #ifndef REST_H
 #define REST_H
@@ -18,17 +19,16 @@ namespace rest
 	class Service
 	{
 	public:
-
-		Service();
-
 		void start(int port);
 		void registerEndpoint(const std::string& path, HTTP_METHOD method, Endpoint(*handler)(Request&));
 		void setStaticDirectory(const std::string& directory);
 		void logConnections(bool value);
+		void registerController(const std::string& basePath, BaseController* controller);
+		void registerController(BaseController* controller);
 	private:
 		struct Route
 		{
-			std::string path;
+			std::string path;	
 			HTTP_METHOD method;
 			Endpoint(*handler)(Request&);
 		};

@@ -131,6 +131,7 @@
     <ClCompile Include="rest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="data\base_controller.h" />
     <ClInclude Include="data\endpoint.h" />
     <ClInclude Include="data\enums.h" />
     <ClInclude Include="data\request.h" />

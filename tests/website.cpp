@@ -96,6 +96,22 @@ Endpoint loginRequest(Request& request)
     return Endpoint(HTTP_STATUS_CODE::UNAUTHORIZED, CONTENT_TYPE::TEXT_HTML);
 }
 
+class TestController : public BaseController 
+{
+public:
+    TestController() 
+    {
+        registerEndpoint("/hello", HTTP_METHOD::GET, &TestController::exampleEndpoint);
+    }
+
+private:
+    static Endpoint exampleEndpoint(Request& request) 
+    {
+        request.response.setBody("hi!");
+        return  Endpoint(HTTP_STATUS_CODE::OK, CONTENT_TYPE::TEXT_PLAIN);
+    }
+};
+
 int main()
 {
     rest::Service service;
@@ -104,6 +120,10 @@ int main()
     service.registerEndpoint("/login", HTTP_METHOD::GET, loginPage);
     service.registerEndpoint("/login", HTTP_METHOD::POST, loginRequest);
     service.registerEndpoint("/dashboard", HTTP_METHOD::GET, dashboardPage);
+
+    TestController testController;
+    service.registerController("/class", &testController);
+
     service.start(80);
 
     return 0;

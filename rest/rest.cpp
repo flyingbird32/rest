@@ -9,28 +9,23 @@
 
 using namespace rest;
 
-Service::Service()
+void Service::registerController(const std::string& basePath, BaseController* controller) 
 {
-    std::string art = R"(
-        
-                             ,--.'|_   
-  __  ,-.                    |  | :,'  
-,' ,'/ /|          .--.--.   :  : ' :  
-'  | |' | ,---.   /  /    '.;__,'  /   
-|  |   ,'/     \ |  :  /`./|  |   |    
-'  :  / /    /  ||  :  ;_  :__,'| :    
-|  | ' .    ' / | \  \    `. '  : |__  
-;  : | '   ;   /|  `----.   \|  | '.'| 
-|  , ; '   |  / | /  /`--'  /;  :    ; 
- ---'  |   :    |'--'.     / |  ,   /  
-        \   \  /   `--'---'   ---`-'   
-         `----'                        
-                                       
-        )";
-
-    printf("%s\n", art.c_str());
+    for (const auto& endpoint : controller->getEndpoints()) 
+    {
+        std::string fullPath = basePath + endpoint.path;
+        registerEndpoint(fullPath, endpoint.method, endpoint.handler);
+    }
 }
 
+void Service::registerController(BaseController* controller)
+{
+    for (const auto& endpoint : controller->getEndpoints())
+    {
+        registerEndpoint(endpoint.path, endpoint.method, endpoint.handler);
+    }
+}
+    
 void Service::registerEndpoint(const std::string& path, HTTP_METHOD method, Endpoint(*handler)(Request&))
 {
     routes.push_back({ path, method, handler });

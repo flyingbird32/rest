@@ -12,5 +12,6 @@
     <ClInclude Include="data\response.h" />
     <ClInclude Include="data\endpoint.h" />
     <ClInclude Include="utils\logger.h" />
+    <ClInclude Include="data\base_controller.h" />
   </ItemGroup>
 </Project>
